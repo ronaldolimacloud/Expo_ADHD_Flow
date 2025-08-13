@@ -1,5 +1,5 @@
 import { Tabs } from 'expo-router';
-import { Folder, Lightbulb, CheckSquare } from 'lucide-react-native';
+import { Folder, Lightbulb, CheckSquare, Video } from 'lucide-react-native';
 
 export default function TabsLayout() {
   return (
@@ -35,7 +35,7 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="ideas/ideas"
+        name="ideass"
         options={{
           title: 'Ideas',
           tabBarIcon: ({ size, color }) => <Lightbulb size={size} color={color} />,
@@ -46,6 +46,13 @@ export default function TabsLayout() {
         options={{
           title: 'To Do',
           tabBarIcon: ({ size, color }) => <CheckSquare size={size} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="Videos/index"
+        options={{
+          title: 'Videos',
+          tabBarIcon: ({ size, color }) => <Video size={size} color={color} />,
         }}
       />
     </Tabs>
