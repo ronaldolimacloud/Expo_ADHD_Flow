@@ -55,6 +55,10 @@
     <string>BrainPocket needs access to your calendar to add task reminders.</string>
     <key>NSCalendarsUsageDescription</key>
     <string>BrainPocket needs access to your calendar to add task reminders.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Allow $(PRODUCT_NAME) to access your camera</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Allow $(PRODUCT_NAME) to access your microphone</string>
     <key>NSRemindersFullAccessUsageDescription</key>
     <string>BrainPocket needs access to your reminders.</string>
     <key>NSRemindersUsageDescription</key>

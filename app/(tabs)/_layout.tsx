@@ -49,7 +49,7 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="Videos/index"
+        name="Videos"
         options={{
           title: 'Videos',
           tabBarIcon: ({ size, color }) => <Video size={size} color={color} />,

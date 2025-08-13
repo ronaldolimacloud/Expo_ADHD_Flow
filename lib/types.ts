@@ -27,3 +27,12 @@ export interface Item {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface YouTubeVideo {
+  id: string;
+  title: string;
+  channelTitle: string;
+  thumbnail: string;
+  publishedAt: string;
+  viewCount?: number;
+}

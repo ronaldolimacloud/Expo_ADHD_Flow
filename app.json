@@ -29,6 +29,9 @@
         }
       ]
     ],
+    "extra": {
+      "YOUTUBE_API_KEY": "AIzaSyDroOmIafbmUNhdgzlYBn1NzQmg_4JYfgA"
+    },
     "experiments": {
       "typedRoutes": true
     },

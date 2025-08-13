@@ -1,5 +1,5 @@
 import * as SQLite from 'expo-sqlite';
-import { Project, Item } from './types';
+import { Project, Item, YouTubeVideo } from './types';
 
 let db: SQLite.SQLiteDatabase | null = null;
 let initPromise: Promise<SQLite.SQLiteDatabase> | null = null;
@@ -42,6 +42,18 @@ export async function initializeDatabase(): Promise<void> {
         updatedAt TEXT NOT NULL,
         FOREIGN KEY (projectId) REFERENCES projects (id),
         FOREIGN KEY (parentId) REFERENCES items (id)
+      );
+    `);
+
+    // Favorites for YouTube videos
+    await db.execAsync(`
+      CREATE TABLE IF NOT EXISTS youtube_favorites (
+        id TEXT PRIMARY KEY,
+        title TEXT NOT NULL,
+        channelTitle TEXT NOT NULL,
+        thumbnail TEXT NOT NULL,
+        publishedAt TEXT NOT NULL,
+        viewCount INTEGER
       );
     `);
 
@@ -548,3 +560,44 @@ export async function searchItemsWithFilters(filters: {
 }
 
 export { initializeDatabase };
+
+// ========== YouTube helpers ==========
+export async function addYouTubeFavorite(video: YouTubeVideo): Promise<void> {
+  const database = await getDbInstance();
+  await database.runAsync(
+    `INSERT OR REPLACE INTO youtube_favorites (id, title, channelTitle, thumbnail, publishedAt, viewCount)
+     VALUES (?, ?, ?, ?, ?, ?)`,
+    [
+      video.id,
+      video.title,
+      video.channelTitle,
+      video.thumbnail,
+      video.publishedAt,
+      video.viewCount ?? null,
+    ]
+  );
+}
+
+export async function removeYouTubeFavorite(id: string): Promise<void> {
+  const database = await getDbInstance();
+  await database.runAsync('DELETE FROM youtube_favorites WHERE id = ?', [id]);
+}
+
+export async function listYouTubeFavorites(): Promise<YouTubeVideo[]> {
+  const database = await getDbInstance();
+  const result = await database.getAllAsync('SELECT * FROM youtube_favorites ORDER BY publishedAt DESC');
+  return (result as any[]).map((r) => ({
+    id: r.id,
+    title: r.title,
+    channelTitle: r.channelTitle,
+    thumbnail: r.thumbnail,
+    publishedAt: r.publishedAt,
+    viewCount: r.viewCount ?? undefined,
+  }));
+}
+
+export async function isYouTubeFavorite(id: string): Promise<boolean> {
+  const database = await getDbInstance();
+  const row = await database.getFirstAsync('SELECT id FROM youtube_favorites WHERE id = ? LIMIT 1', [id]);
+  return !!row;
+}
