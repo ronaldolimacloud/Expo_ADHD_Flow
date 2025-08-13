@@ -24,8 +24,8 @@
       [
         "expo-calendar",
         {
-          "calendarPermission": "BrainPocket needs access to your calendar to add task reminders.",
-          "remindersPermission": "BrainPocket needs access to your reminders."
+          "calendarPermission": "The app needs to access your calendar.",
+          "remindersPermission": "The app needs to access your reminders."
         }
       ]
     ],

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { View, Text, TextInput, FlatList, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { useRouter } from 'expo-router';
 import Constants from 'expo-constants';
 import { addYouTubeFavorite, isYouTubeFavorite, listYouTubeFavorites, removeYouTubeFavorite } from '@/lib/db';
 import { YouTubeVideo } from '@/lib/types';
@@ -38,6 +39,7 @@ async function searchYouTube(query: string, apiKey?: string): Promise<SearchResu
 }
 
 export default function Youtube() {
+  const router = useRouter();
   const [tab, setTab] = useState<'favorites' | 'search'>('search');
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
@@ -78,7 +80,10 @@ export default function Youtube() {
   }
 
   const renderItem = ({ item }: { item: SearchResult }) => (
-    <View style={{ flexDirection: 'row', padding: 12, marginHorizontal: 12, marginVertical: 6, backgroundColor: '#111827', borderRadius: 12 }}>
+    <TouchableOpacity
+      onPress={() => router.push((`/Videos/watch/${item.id}?title=${encodeURIComponent(item.title)}` as any))}
+      style={{ flexDirection: 'row', padding: 12, marginHorizontal: 12, marginVertical: 6, backgroundColor: '#111827', borderRadius: 12 }}
+    >
       <Image source={{ uri: item.thumbnail }} style={{ width: 120, height: 68, borderRadius: 8, backgroundColor: '#222' }} />
       <View style={{ flex: 1, marginLeft: 12 }}>
         <Text numberOfLines={2} style={{ color: 'white', fontWeight: '600' }}>{item.title}</Text>
@@ -87,11 +92,14 @@ export default function Youtube() {
       <TouchableOpacity onPress={() => toggleFavorite(item)} style={{ padding: 6, alignSelf: 'center' }}>
         <Text style={{ fontSize: 18 }}>{item.favorited ? '❤️' : '🤍'}</Text>
       </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
 
   const renderFav = ({ item }: { item: YouTubeVideo }) => (
-    <View style={{ flexDirection: 'row', padding: 12, marginHorizontal: 12, marginVertical: 6, backgroundColor: '#111827', borderRadius: 12 }}>
+    <TouchableOpacity
+      onPress={() => router.push((`/Videos/watch/${item.id}?title=${encodeURIComponent(item.title)}` as any))}
+      style={{ flexDirection: 'row', padding: 12, marginHorizontal: 12, marginVertical: 6, backgroundColor: '#111827', borderRadius: 12 }}
+    >
       <Image source={{ uri: item.thumbnail }} style={{ width: 120, height: 68, borderRadius: 8, backgroundColor: '#222' }} />
       <View style={{ flex: 1, marginLeft: 12 }}>
         <Text numberOfLines={2} style={{ color: 'white', fontWeight: '600' }}>{item.title}</Text>
@@ -100,14 +108,14 @@ export default function Youtube() {
       <TouchableOpacity onPress={() => toggleFavorite(item)} style={{ padding: 6, alignSelf: 'center' }}>
         <Text style={{ fontSize: 18 }}>❤️</Text>
       </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
     <View style={{ flex: 1, backgroundColor: '#0B0B0C' }}>
       {/* Header */}
       <View style={{ paddingTop: 24, paddingHorizontal: 16, paddingBottom: 8 }}>
-        <Text style={{ fontSize: 22, fontWeight: '700', color: 'white' }}>❤️ YouTube</Text>
+        
         <View style={{ flexDirection: 'row', marginTop: 12 }}>
           <TouchableOpacity onPress={() => setTab('favorites')} style={{ marginRight: 16 }}>
             <Text style={{ color: tab === 'favorites' ? 'white' : '#9CA3AF', fontWeight: '600' }}>Favorites</Text>

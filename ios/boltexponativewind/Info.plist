@@ -52,17 +52,17 @@
       <true/>
     </dict>
     <key>NSCalendarsFullAccessUsageDescription</key>
-    <string>BrainPocket needs access to your calendar to add task reminders.</string>
+    <string>The app needs to access your calendar.</string>
     <key>NSCalendarsUsageDescription</key>
-    <string>BrainPocket needs access to your calendar to add task reminders.</string>
+    <string>The app needs to access your calendar.</string>
     <key>NSCameraUsageDescription</key>
     <string>Allow $(PRODUCT_NAME) to access your camera</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>Allow $(PRODUCT_NAME) to access your microphone</string>
     <key>NSRemindersFullAccessUsageDescription</key>
-    <string>BrainPocket needs access to your reminders.</string>
+    <string>The app needs to access your reminders.</string>
     <key>NSRemindersUsageDescription</key>
-    <string>BrainPocket needs access to your reminders.</string>
+    <string>The app needs to access your reminders.</string>
     <key>NSUserActivityTypes</key>
     <array>
       <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
